@@ -1,33 +1,38 @@
-%% 4 channel bilateral teleoperation architectures
+%% scattering based force velocity
 
 %Sin frequency and amplitude of the reference signal
-Fc = 0.5;
-Amp = 0.3;
+Fc_sin = 0.1;
+Amp = 0.3; %0.8
+
+delay = 10;
+
+% cutoff frequency of the wave transformation filter
+Fc_wave = 8;
 
 %Frequency of the low pass filter
-Fip = 1;
+Fc_lp = 5;
 
 %Human Controller/Human intention
-Ph = 50;
-Dh = 40;
+Dh = 8;
+Ph = 1;
 
 %Master controller
-Bm = 0.8;
-Km = 1;
+Bm = 10;
+Km = 30;
 
 %Slave controller
-Bs = Bm*4;
-Ks = Km*4;
+Bs = 100;
+Ks = 80;
 
 % Human Impedance
-Jh = 0.5;
-Bh = 1.5;
-Kh = 1;
+Jh = 0;  
+Bh = 1.5;  
+Kh = 0.1; %1.0; 
 
 %Environment Impedance
 Je = 0;
-Be = 0;
-Ke = 200;
+Be = 20;
+Ke = 210;
 
 %Environment position
 xe = 0.5;
@@ -36,33 +41,29 @@ xe = 0.5;
 Ms = 2;
 Ds = 0; %10;
 
-%Master robot Inertia
 Mm = 0.5;
-Dm = 0; %5;
+Dm = 0;
 
 %Sample time
 Ts=0.001;
 
+% Wave constant variable
+b = 1;
+
 %Noise
-posNoiseVar = 0.001;
+posNoiseVar = 0.00001;
 torqueNoiseVar = 0.01;
 
-% Inner force loop
-Cmf = 0; %1;
-Csf = 0; %0.2;
-
-%Kalman filter
-A = [1 Ts;
+A = [1 Ts
     0 1];
 B = [Ts^2/2;Ts];
 x0 = [0 0];
 C = [1 0];
 
-q_m = 1000000;
+q_m = 100000000;
 R_m = 1;
 Q_m = q_m*B*B';
 
-
-q_s = 10000;
+q_s = 100000000;
 R_s = 1;
 Q_s = q_s*B*B';
