@@ -51,4 +51,21 @@ Ts=0.001;
 beta = 0.2;
 alpha = 1;
 
-H_D = 1.5; 
+H_D = 1.5;
+
+%Noise
+posNoiseVar=0.0001;
+
+A = [1 Ts
+    0 1];
+B = [Ts^2/2;Ts];
+x0 = [0 0];
+C = [1 0];
+
+q_m = 1000000;
+R_m = 1;
+Q_m = q_m*B*B';
+
+q_s = 1000000;
+R_s = 1;
+Q_s = q_s*B*B';

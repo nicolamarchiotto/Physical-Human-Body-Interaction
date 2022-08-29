@@ -1,4 +1,4 @@
-%% Tank based velocity velocity
+%% Tank based force velocity
 
 %Sin frequency and amplitude of the reference signal
 Fc_sin = 0.1;
@@ -17,12 +17,12 @@ Dh = 8;
 Ph = 0;% 1;
 
 %Master controller
-Bm = 3;
-Km = 40;
+Bm = 0;
+Km = 0;
 
 %Slave controller
-Bs = 15;
-Ks = 50;
+Bs = 45;
+Ks = 15;
 
 % Human Impedance
 Jh = 0;  
@@ -48,7 +48,25 @@ Dm = 0;
 Ts=0.001;
 
 % Tank variables
-beta = 0.2;
-alpha = 1;
+beta = 0.5;
+alpha = 0.5;
 
-H_D = 1.5; 
+H_D = 0.5; 
+
+%Noise
+posNoiseVar=0.001;
+torqueNoiseVar=0.001;
+
+A = [1 Ts
+    0 1];
+B = [Ts^2/2;Ts];
+x0 = [0 0];
+C = [1 0];
+
+q_m = 1000000;
+R_m = 1;
+Q_m = q_m*B*B';
+
+q_s = 1000000;
+R_s = 1;
+Q_s = q_s*B*B';
