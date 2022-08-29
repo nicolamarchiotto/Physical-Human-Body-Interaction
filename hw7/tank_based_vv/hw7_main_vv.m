@@ -1,10 +1,10 @@
-%% scattering based force velocity
+%% Tank based force velocity
 
 %Sin frequency and amplitude of the reference signal
 Fc_sin = 0.1;
-Amp = 0.8; %0.8
+Amp = 1.5; %0.8
 
-delay = 0;
+delay = 10;
  
 % % cutoff frequency of the wave transformation filter
 % Fc_wave = 8;
@@ -14,15 +14,15 @@ Fc_lp = 5;
 
 %Human Controller/Human intention
 Dh = 8;
-Ph = 1;
+Ph = 0;% 1;
 
 %Master controller
-Bm = 1;
-Km = 5;
+Bm = 3;
+Km = 40;
 
 %Slave controller
-Bs = 5;
-Ks = 1;
+Bs = 15;
+Ks = 50;
 
 % Human Impedance
 Jh = 0;  
@@ -35,7 +35,7 @@ Be = 20;
 Ke = 210;
 
 %Environment position
-xe = 5;
+xe = 1;
     
 %Slave robot Inertia
 Ms = 2;
@@ -49,6 +49,6 @@ Ts=0.001;
 
 % Tank variables
 beta = 0.2;
-alpha = 0.2;
+alpha = 1;
 
-H_D = 1; 
+H_D = 1.5; 
