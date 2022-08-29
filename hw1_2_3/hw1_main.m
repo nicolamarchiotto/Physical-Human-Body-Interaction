@@ -2,7 +2,7 @@
 
 %Sin frequency and amplitude of the reference signal
 Fc = 0.5;
-Amp = 0.3;
+Amp = 0.8;
 
 %Frequency of the low pass filter
 Fip = 1;
@@ -44,7 +44,7 @@ Dm = 0; %5;
 Ts=0.001;
 
 %Noise
-posNoiseVar = 0.001;
+posNoiseVar = 0.0001;
 torqueNoiseVar = 0.01;
 
 % Inner force loop
@@ -63,6 +63,6 @@ R_m = 1;
 Q_m = q_m*B*B';
 
 
-q_s = 10000;
+q_s = 1000000;
 R_s = 1;
 Q_s = q_s*B*B';
