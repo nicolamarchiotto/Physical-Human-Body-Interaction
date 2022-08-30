@@ -49,7 +49,7 @@ torqueNoiseVar = 0.01;
 
 % Inner force loop
 Cmf = 0; %1;
-Csf = 0; %0.2;
+Csf = 10; %0.2;
 
 %Kalman filter
 A = [1 Ts;
