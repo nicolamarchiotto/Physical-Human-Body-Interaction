@@ -2,7 +2,7 @@
 
 %Sin frequency and amplitude of the reference signal
 Fc_sin = 0.1;
-Amp = 1.5; %0.8
+Amp = 0.8; %0.8
 
 delay = 10;
  
@@ -35,7 +35,7 @@ Be = 20;
 Ke = 210;
 
 %Environment position
-xe = 1;
+xe = 0.5;
     
 %Slave robot Inertia
 Ms = 2;
@@ -52,3 +52,5 @@ beta = 0.5;
 alpha = 0.5;
 
 H_D = 0.5; 
+H0_m = 40;
+H0_s = 10;

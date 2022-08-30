@@ -2,7 +2,7 @@
 
 %Sin frequency and amplitude of the reference signal
 Fc_sin = 0.1;
-Amp = 0.8; %0.8
+Amp = 0.3; %0.8
 
 delay = 10;
 

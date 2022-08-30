@@ -41,10 +41,10 @@ q=qm;
 dq=dqm;
 N=size(q,1);
 
-dq_euler=eulerVelocity(q,Ts);
-
+dq_euler = eulerVelocity(q,Ts);
+ddq_euler = eulerVelocity(dq,Ts);
+ddq_euler = lowpass(ddq_euler, 5, 1/Ts);
 % TO SUBSTITUTE WITH ACTUAL FILTERED ONE
-dq_euler_filtered=dq_euler;
 
 R=0.0001;
 q_low_case=1;
@@ -68,11 +68,13 @@ result=kalmanFilterPredictor(x0,P0,A,C,Q,R,q,[]);
 kf=[result.x_k_k];
 kf_q=kf(1,:)';
 kf_dq=kf(2,:)';
+kf_ddq=kf(3,:)';
 
 % kalman predictor
 kp=[result.x_kp1_k];
 kp_q=kp(1,:)';
 kp_dq=kp(2,:)';
+kp_ddq=kf(3,:)';
 
 %
 %
@@ -85,6 +87,7 @@ result=kalmanSmoother(A,q,result);
 ks=[result.xs_k];
 ks_q=ks(1,:)';
 ks_dq=ks(2,:)';
+ks_ddq=ks(3,:)';
 
 
 %
@@ -99,11 +102,13 @@ result=steadyKalmanFilterPredictor(x0,A,C,Q,R,q,result);
 S_kf=[result.S_x_k_k];
 S_kf_q=S_kf(1,:)';
 S_kf_dq=S_kf(2,:)';
+S_kf_ddq=S_kf(3,:)';
 
 % steady kalman predictor
 S_kp=[result.S_x_kp1_k];
 S_kp_q=S_kp(1,:)';
 S_kp_dq=S_kp(2,:)';
+S_kp_ddq=S_kp(3,:)';
 
 
 % 
@@ -114,26 +119,33 @@ S_kp_dq=S_kp(2,:)';
 t = data.('%TIME');
 
 %% Filter, Predictor, Smoother
-
+close all
 figure;
 hold on
 plot(t,q,t,kf_q,t,kp_q,t,ks_q);
 legend('Measurements','Kalman filter', 'Kalman predictor','Kalman Smoother')
 title('Position')
 
-figure;
+figure
 hold on
 plot(t,dq,t,kf_dq,t,kp_dq,t,ks_dq);
 title('Velocity')
 legend('Measurements','Kalman filter', 'Kalman predictor', 'Kalman Smoother')
 
+figure
+hold on
+plot(t(1:end-1), ddq_euler, t(1:end-1), kf_ddq(1:end-1), t(1:end-1), kp_ddq(1:end-1), t(1:end-1), ks_ddq(1:end-1));
+title('Acceleration')
+legend('Euler approximation','Kalman filter', 'Kalman predictor', 'Kalman Smoother')
+
 %% Steady filter/predictor
+close all;
+
 figure;
 hold on
 plot(t,dq,t,kf_dq,t,S_kf_dq);
 title('Velocity - Kalman Filter vs Steady State Filter')
 legend('Measurements','Kalman filter', 'Steady filter')
-
 
 figure;
 hold on
@@ -141,10 +153,21 @@ plot(t,dq,t,kp_dq,t,S_kp_dq);
 title('Velocity - Kalman Predictor vs Steady State Predictor')
 legend('Measurements', 'Kalman predictor', 'Steady predictor')
 
+figure;
+hold on
+plot(t(1:end-1), ddq_euler, t(1:end-1), kf_ddq(1:end-1), t(1:end-1), S_kf_ddq(1:end-1));
+title('Acceleration - Kalman Filter vs Steady State Filter')
+legend('Euler approximation','Kalman filter', 'Steady filter')
+
+figure;
+hold on
+plot(t(1:end-1) ,ddq_euler, t(1:end-1), kp_ddq(1:end-1), t(1:end-1) ,S_kp_ddq(1:end-1));
+title('Acceleration - Kalman Predictor vs Steady State Predictor')
+legend('Euler approximation', 'Kalman predictor', 'Steady predictor')
+
 %% Measurements, Kalman Filter, Euler velocity
 figure;
 hold on 
-plot(t(1:end-1),dq_euler,t(1:end-1),dq(1:end-1),t(1:end-1),kf_dq(1:end-1),t(1:end-1),dq_euler_filtered);
+plot(t(1:end-1), dq_euler, t(1:end-1), dq(1:end-1), t(1:end-1), kf_dq(1:end-1));
 title('Euler vel')
-legend('Euler velocity','Measurements','Kalman velocity','Filtered Euler Velocity')
-
+legend('Euler velocity','Measurements','Kalman velocity')

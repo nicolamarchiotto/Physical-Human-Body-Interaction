@@ -2,7 +2,7 @@
 
 %Sin frequency and amplitude of the reference signal
 Fc_sin = 0.1;
-Amp = 1.5; %0.8
+Amp = 0.8; %0.8
 
 delay = 10;
  
@@ -13,16 +13,16 @@ delay = 10;
 Fc_lp = 5;
 
 %Human Controller/Human intention
-Dh = 8;
-Ph = 0;% 1;
+Dh = 2; %3
+Ph = 1;% 1;
 
 %Master controller
 Bm = 0;
 Km = 0;
 
 %Slave controller
-Bs = 45;
-Ks = 15;
+Bs = 50;
+Ks = 40;
 
 % Human Impedance
 Jh = 0;  
@@ -35,7 +35,7 @@ Be = 20;
 Ke = 210;
 
 %Environment position
-xe = 1;
+xe = 0.5;
     
 %Slave robot Inertia
 Ms = 2;
@@ -48,10 +48,13 @@ Dm = 0;
 Ts=0.001;
 
 % Tank variables
-beta = 0.5;
 alpha = 0.5;
+beta = 0.01;
+
 
 H_D = 0.5; 
+H0_m = 1;
+H0_s = 1;
 
 %Noise
 posNoiseVar=0.001;

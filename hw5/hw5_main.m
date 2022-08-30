@@ -1,5 +1,6 @@
 %% hw5 - Identify the parameters k and tau (i.e J and D) using the LS, RLS and the Adaptive Algorithm on the DC motors data
-
+clc
+clear
 data = readtable('master_slave_1kHz.txt','PreserveVariableNames',true);
 data(1:370,:)=[];
 Ts=0.001;
@@ -14,7 +15,7 @@ Y=volt;
 
 Y=lowPassFilter(Y,1,Ts);
 
-%% LS
+% LS
 
 b_hat_ls=inv(X'*X)*X'*Y;
 
@@ -23,18 +24,18 @@ Y_hat_ls=X*b_hat_ls;
 k_ls=1/b_hat_ls(2);
 tau_ls=b_hat_ls(1)*k_ls;
 
-%% RLS
+% RLS
 
 P0=diag([1 1]);
 lamba=1;
-[Y_hat_rls,k_adpt,tau_adpt]=RLS(X,Y,P0,lamba);
+[Y_hat_rls,k_rls,tau_rls]=RLS(X,Y,P0,lamba);
 
-%% Adaptive algorithm
+% Adaptive algorithm
 
-g=1;
-[Y_hat_adpt]=adativeAlgorithm(X,Y,Ts,g);
+g=0.3;
+[Y_hat_adpt, k_adpt, tau_adpt]=adativeAlgorithm(X,Y,Ts,g);
 
-%% Data vs LS
+% Data vs LS
 figure;
 plot(t,Y);
 hold on;
@@ -44,7 +45,7 @@ xlabel('Time')
 ylabel('Voltage')
 title("LS: Parameters: k "+k_ls+" tau "+tau_ls)
 
-%% Data vs LS vs RLS
+% Data vs LS vs RLS
 
 figure;
 plot(t,Y);
@@ -56,7 +57,7 @@ xlabel('Time')
 ylabel('Voltage')
 title("RLS: Final parameters: k "+k_rls+" tau "+tau_rls)
 
-%% Data vs LS vs RLS vs Adaptive Algorithm
+% Data vs LS vs RLS vs Adaptive Algorithm
 
 figure;
 plot(t,Y);

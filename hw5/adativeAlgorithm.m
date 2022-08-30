@@ -1,7 +1,7 @@
-function [Y_hat_adpt]=adativeAlgorithm(X,Y,Ts,g)
+function [Y_hat_adpt, k_adpt, tau_adpt]=adativeAlgorithm(X,Y,Ts,g)
 
 adpt=[];
-b0=[0;0];
+b0=[1;1];
 for k=1:size(X,1)
     if(k==1)
         err_k=Y(k,:)-X(k,:)*b0;
@@ -13,7 +13,7 @@ for k=1:size(X,1)
     adpt(k).Y_hat=X(k,:)*adpt(k).b;
 end
 Y_hat_adpt=[adpt.Y_hat]';
-% k_adpt=1/adpt(end).b(2);
-% tau_adpt=adpt(end).b(1)*k_adpt;
+k_adpt=1/adpt(end).b(2);
+tau_adpt=adpt(end).b(1)*k_adpt;
 
 end
