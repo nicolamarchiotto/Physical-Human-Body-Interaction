@@ -2,7 +2,7 @@
 
 %Sin frequency and amplitude of the reference signal
 Fc_sin = 0.1;
-Amp = 0.8; %0.8
+Amp = 0.3; %0.8
 
 delay = 10;
  
@@ -13,16 +13,16 @@ delay = 10;
 Fc_lp = 5;
 
 %Human Controller/Human intention
-Dh = 2; %3
-Ph = 1;% 1;
+Dh = 5; %2
+Ph = 0;% 1;
 
 %Master controller
 Bm = 0;
 Km = 0;
 
 %Slave controller
-Bs = 50;
-Ks = 40;
+Bs = 45;
+Ks = 35;
 
 % Human Impedance
 Jh = 0;  
@@ -31,8 +31,8 @@ Kh = 0.1; %1.0;
 
 %Environment Impedance
 Je = 0;
-Be = 20;
-Ke = 210;
+Be = 10;
+Ke = 90;
 
 %Environment position
 xe = 0.5;
@@ -48,16 +48,16 @@ Dm = 0;
 Ts=0.001;
 
 % Tank variables
+beta = 0.5;
 alpha = 0.5;
-beta = 0.01;
 
 
 H_D = 0.5; 
-H0_m = 1;
-H0_s = 1;
+H0_m = 40;
+H0_s = 10;
 
 %Noise
-posNoiseVar=0.001;
+posNoiseVar=0.0001;
 torqueNoiseVar=0.001;
 
 A = [1 Ts

@@ -7,7 +7,7 @@ Amp = 0.3; %0.8
 delay = 10;
 
 % cutoff frequency of the wave transformation filter
-Fc_wave = 8;
+Fc_wave = 10;
 
 %Frequency of the low pass filter
 Fc_lp = 5;
